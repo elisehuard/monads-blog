@@ -1,0 +1,9 @@
+{
+  "name": "monads-blog-js",
+  "version": "0.0.1",
+  "author": "Elise Huard",
+  "devDependencies": {
+    "vows": "0.6.x"
+  },
+  "license": "MIT"
+}

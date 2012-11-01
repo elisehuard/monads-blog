@@ -1,5 +1,5 @@
-(ns play-with-monads.test.core
-  (:use [play-with-monads.core])
+(ns monads-blog.test.core
+  (:use [monads-blog.core])
   (:use [clojure.test]))
 
 (deftest replace-me ;; FIXME: write

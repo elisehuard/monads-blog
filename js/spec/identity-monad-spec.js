@@ -4,6 +4,8 @@ var monads = require('../identity-monad.js'),
     wrap   = monads.identityMonad.wrap,
     bind   = monads.identityMonad.bind,
     lift   = monads.identityMonad.lift;
+var monad = require('../monadic-laws.js'),
+    monadicLaws = monad.laws;
 
 vows.describe('Identity Monad').addBatch({
   'wrap generates a monadic value closing over the value': {
@@ -39,28 +41,23 @@ vows.describe('Identity Monad').addBatch({
       var more = function(value) {
           return wrap("more " + value);
       }
-      assert.equal(bind(wrap("candy"), more)(),
-                   more("candy")());
+      monadicLaws.first(bind, wrap, more, 'candy');
     }
   },
   'second monadic law': {
     'right unit: wrap acts as neutral element of bind': function() {
-      assert.equal(bind(wrap("candy"), wrap)(),
-                   wrap("candy")());
+      monadicLaws.second(bind, wrap, "candy");
     }
   },
   'third monadic law': {
     'associative: binding two functions in succession is equal to binding a combination of the two functions': function() {
-      var f = function(value) {
+      var much = function(value) {
           return wrap("much " + value);
       }
-      var g = function(value) {
+      var more = function(value) {
           return wrap("more " + value);
       }
-      var mv = wrap("candy");
-
-      assert.equal(bind(bind(mv,f),g)(),
-                   bind(mv,function(x) { return bind(f(x),g) })());
+      monadicLaws.third(bind, wrap, much, more, "candy");
     }
   }
 }).export(module);

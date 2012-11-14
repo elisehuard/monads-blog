@@ -4,9 +4,7 @@ var identityMonad = new function() {
   };
 
   var bind = function(mv, f) {
-    return function() {
-      return f(mv())();
-    }
+    return f(mv());
   };
 
   var lift = function(f) {
